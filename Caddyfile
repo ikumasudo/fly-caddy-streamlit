@@ -1,0 +1,13 @@
+http://{$FLY_APP_NAME}.fly.dev {
+  @allowed_ip {
+        header Fly-Client-Ip {$ALLOWED_IP}
+  }
+  @denied_ip {
+        not header Fly-Client-Ip {$ALLOWED_IP}
+  }
+  reverse_proxy @allowed_ip localhost:8501
+  respond @denied_ip "Access Denied" 403
+  log {
+        output file /var/log/caddy/access.log
+  }
+}
