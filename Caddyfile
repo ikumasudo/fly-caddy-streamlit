@@ -5,6 +5,10 @@ http://{$FLY_APP_NAME}.fly.dev {
   @denied_ip {
         not header Fly-Client-Ip {$ALLOWED_IP}
   }
+  basic_auth {
+		# Username "Bob", password "hiccup"
+		Bob $2a$14$Zkx19XLiW6VYouLHR5NmfOFU0z2GTNmpkT/5qqR7hx4IjWJPDhjvG
+	}
   reverse_proxy @allowed_ip localhost:8501
   respond @denied_ip "Access Denied" 403
   log {
